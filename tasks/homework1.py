@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QPushButton, QLineEdit, QApplication
+from PyQt5.QtWidgets import QMainWindow, QPushButton, QTextEdit, QApplication
 import sys
 
 
@@ -12,11 +12,11 @@ class MainWindow(QMainWindow):
         self.setGeometry(300, 300, 360, 60)
         self.setWindowTitle("Фокус")
 
-        self.label_left = QLineEdit(self)
+        self.label_left = QTextEdit(self)
         self.label_left.setGeometry(10, 10, 130, 40)
         self.label_left.setText("Фокус")
 
-        self.label_right = QLineEdit(self)
+        self.label_right = QTextEdit(self)
         self.label_right.setGeometry(220, 10, 130, 40)
 
         self.button = QPushButton(self)
