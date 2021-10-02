@@ -6,9 +6,9 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.Ui_init()
+        self.Winit()
 
-    def Ui_init(self):
+    def Winit(self):
         self.setGeometry(300, 300, 360, 60)
         self.setWindowTitle("Фокус")
 
