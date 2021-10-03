@@ -68,10 +68,6 @@ class MainWindow(QMainWindow):
         self.flags[sender][0] = not self.flags[sender][0]
 
 
-
-
-
-
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
