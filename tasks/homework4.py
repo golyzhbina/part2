@@ -40,6 +40,7 @@ class MainWindow(QMainWindow):
         self.line = QTextEdit(self)
         self.line.setGeometry(10, 120, 370, 30)
         self.line.setReadOnly(True)
+        self.line.setFontPointSize(14)
 
         self.alphabet = {
             'A': '.-',
