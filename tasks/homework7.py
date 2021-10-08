@@ -1,5 +1,5 @@
 from homework6 import MainWindow
-from PyQt5.QtWidgets import QTextEdit, QApplication, QLineEdit
+from PyQt5.QtWidgets import QApplication, QLineEdit
 import sys
 
 
