@@ -1,6 +1,8 @@
+import networkx
 from numpy import array
 import numpy as np
 import copy
+import matplotlib.pyplot as plt
 
 
 def init_a_matrix(filename: str) -> list:      # инициализация исходной матрицы
@@ -16,7 +18,7 @@ def func_r_matrix(a_matrix: list) -> list:  # вычисление матриц�
 
     n = len(a_matrix)
     a_matrix = [list(map(lambda x: 1 if x != 0 else 0, a_matrix[i])) for i in range(len(a_matrix))]
-    r_matrix_1 = list(map(lambda x: x.copy(), a_matrix))
+    r_matrix_1 = copy.deepcopy(a_matrix)
     r_matrix = array(list(map(array, a_matrix)))
     r_matrix_1 = array(list(map(array, r_matrix_1)))
 
@@ -51,8 +53,6 @@ def min_val_search():   # поиск ребра с минимальным вес
         new_min_val = (new_min_val, i, start_a_matrix_copy[i].index(new_min_val))
         if old_min_val[0] > new_min_val[0]:
             old_min_val = new_min_val
-        else:
-            continue
 
     start_a_matrix_copy[old_min_val[1]][old_min_val[2]] = start_max + 1
     start_a_matrix_copy[old_min_val[2]][old_min_val[1]] = start_max + 1
@@ -114,7 +114,7 @@ start_a_matrix_copy = copy.deepcopy(start_a_matrix)
 start_max = max(map(max, start_a_matrix_copy))
 
 lst_min_vals = list()
-tree = dict()
+tree = set()
 
 old_a_matrix = [[0 for _ in range(len(start_a_matrix))] for _ in range(len(start_a_matrix))]
 old_r_matrix = [[0 for _ in range(len(start_a_matrix))] for _ in range(len(start_a_matrix))]
@@ -135,6 +135,19 @@ while True:
     old_r_matrix = func_r_matrix(old_a_matrix)
 
 
-for rib in old_a_matrix:
-    print(*rib)
+for i in range(len(old_a_matrix)):
+    old_a_matrix[i] = list(map(lambda x: x if i < old_a_matrix[i].index(x) else 0, old_a_matrix[i]))
 
+for i in range(len(old_a_matrix)):
+    ways = filter(lambda x: x != 0, old_a_matrix[i])
+    for way in ways:
+        tree.add((start_graph_vertex[i], start_graph_vertex[old_a_matrix[i].index(way)], way))
+
+G = networkx.Graph()
+G.add_weighted_edges_from(tree)
+
+networkx.draw_circular(G,
+                 node_color='red',
+                 node_size=1000,
+                 with_labels=True)
+plt.show()
