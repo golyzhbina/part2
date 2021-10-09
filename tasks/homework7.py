@@ -10,8 +10,8 @@ class ModifiedMainWindow(MainWindow):
 
     def mod_initMW(self):
 
-        self.plain_edit.setGeometry(20, 140, 170, 100)
-
+        self.setGeometry(500, 200, 300, 400)
+        self.plain_edit.setGeometry(20, 140, 200, 200)
         self.count_cheeseburger = QLineEdit(self)
         self.count_cheeseburger.setGeometry(100, 27, 20, 15)
         self.count_cheeseburger.setEnabled(False)
@@ -45,14 +45,16 @@ class ModifiedMainWindow(MainWindow):
 
     def out(self):
         out = [self.order[0]]
+        amount = 0
         for pos in range(1, len(self.order)):
             count = self.dict_checkbox[self.order[pos]].text()
             out_i = self.order[pos].ljust(13, ".") + count + " шт."
             out_i = out_i.ljust(20, ".") + str(int(count) * self.price[self.order[pos]]) + " руб."
+            amount += int(count) * self.price[self.order[pos]]
             out.append(out_i)
 
+        out.append('\n' + f"Итого: {amount} руб.")
         self.plain_edit.setPlainText('\n'.join(out))
-
 
 
 if __name__ == '__main__':
