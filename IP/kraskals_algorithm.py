@@ -146,8 +146,5 @@ for i in range(len(old_a_matrix)):
 G = networkx.Graph()
 G.add_weighted_edges_from(tree)
 
-networkx.draw_circular(G,
-                 node_color='red',
-                 node_size=1000,
-                 with_labels=True)
+networkx.draw(G, node_color='red',  node_size=1000, with_labels=True)
 plt.show()
