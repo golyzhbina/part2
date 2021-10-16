@@ -55,7 +55,7 @@ class MainWindow(QMainWindow):
         if len(b) == 0:
             b = 0
         a, b = int(a), int(b)
-        result = self.operations[sender](a, b)
+        result = self.chars[sender](a, b)
         self.result.setText(str(result))
 
 app = QApplication(sys.argv)
