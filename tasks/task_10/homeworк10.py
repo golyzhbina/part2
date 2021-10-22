@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
 
                 self.line_maxvalue.setText(str(max(map(max, numbers))))
                 self.line_minvalue.setText(str(min(map(min, numbers))))
-                self.line_mean.setText(str(sum(map(sum, numbers)) / len(numbers)))
+                self.line_mean.setText(str(sum(map(sum, numbers)) / sum(map(len, numbers))))
 
         else:
             self.label_satisfy_file.setText(f"Файл не найден {file_name}")
