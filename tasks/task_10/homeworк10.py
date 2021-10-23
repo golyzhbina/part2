@@ -33,12 +33,18 @@ class MainWindow(QMainWindow):
 
         self.line_maxvalue = QLineEdit(self)
         self.line_maxvalue.setGeometry(160, 50, 125, 30)
+        self.line_maxvalue.setText("0")
+        self.line_maxvalue.setReadOnly(True)
 
         self.line_minvalue = QLineEdit(self)
         self.line_minvalue.setGeometry(160, 90, 125, 30)
+        self.line_minvalue.setText("0")
+        self.line_minvalue.setReadOnly(True)
 
         self.line_mean = QLineEdit(self)
         self.line_mean.setGeometry(160, 130, 125, 30)
+        self.line_mean.setText("0,0")
+        self.line_mean.setReadOnly(True)
 
         self.pushbutton_calc = QPushButton(self)
         self.pushbutton_calc.setGeometry(215, 10, 70, 30)
