@@ -141,7 +141,6 @@ class MainWindow(QMainWindow):
                 self.buttons[i][j].setEnabled(True)
 
 
-
 app = QApplication(sys.argv)
 ex = MainWindow()
 ex.show()
