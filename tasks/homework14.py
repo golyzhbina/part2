@@ -11,7 +11,7 @@ class Widget2(QWidget):
         super(Widget2, self).__init__()
 
         self.setGeometry(200, 200, 500, 500)
-        self.setWindowTitle("Квадрат-объектив 1")
+        self.setWindowTitle("Квадрат-объектив 2")
 
         self.label_coef = QLabel(self)
         self.label_coef.move(20, 20)
