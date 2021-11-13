@@ -19,20 +19,16 @@ class MainWindow(QMainWindow):
         self.list.setGeometry(20, 60, 260, 220)
         self.list.setEnabled(False)
 
-        self.flag = True
-
     def mix(self):
 
         self.list.clear()
         with open("not_for_me.txt", "r", encoding="utf-8") as out_file:
-            if self.flag:
-                text = list(map(lambda x: x.strip(), out_file.readlines()[1::2]))
-            else:
-                text = list(map(lambda x: x.strip(), out_file.readlines()[::2]))
 
-        self.flag = not self.flag
+            text = out_file.readlines()
+            text1 = list(map(lambda x: x.strip(), text[1::2]))
+            text2 = list(map(lambda x: x.strip(), text[::2]))
 
-        self.list.addItems(text)
+        self.list.addItems(text1 + text2)
 
 
 sys._excepthook = sys.excepthook
