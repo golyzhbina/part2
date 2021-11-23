@@ -24,11 +24,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         with open(table_name, encoding="utf8") as csvfile:
             reader = list(csv.reader(csvfile, delimiter=',', quotechar='"'))
-            title = [reader[0][1], reader[0][7]]
             self.data = reader[1:]
             self.school_list, self.classes_list, data = set(map(lambda x: x[2][12:14], self.data)), \
                                                         set(map(lambda x: x[2][15:17], self.data)), \
-                                                        list(map(lambda x: [x[0], x[1][8:-2], x[7]], self.data))
+                                                        list(map(lambda x: [x[0], x[1][8:-2], x[7], x[1]], self.data))
 
             self.box_school.addItem("Все")
 
@@ -55,12 +54,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         place = list(set(map(lambda x: x[0].replace("-", " "), data_table)))
         place = sorted([tuple(int(elem) for elem in x.split()) for x in place])[:3]
         place = ["-".join([str(e) for e in list(x)]) for x in place]
-        print(place)
         colors = [QColor(255, 215, 0), QColor(128, 128, 128), QColor(207, 127, 50)]
 
         self.table.setRowCount(0)
-        self.table.setColumnCount(2)
-        self.table.setHorizontalHeaderLabels(["Фамилия", "Результат"])
+        self.table.setColumnCount(3)
+        self.table.setHorizontalHeaderLabels(["Фамилия", "Результат", "Логин"])
         for i, row in enumerate(data_table):
             self.table.setRowCount(
                 self.table.rowCount() + 1)
