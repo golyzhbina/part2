@@ -1,6 +1,6 @@
 import sqlite3
 
-connection = sqlite3.connect("../task_19_20_22_23/films_1.sqlite")
+connection = sqlite3.connect("../../task_19_20_22_23/films_1.sqlite")
 cursor = connection.cursor()
 # result = cursor.execute("""select * from films
 # where title like '%?'""").fetchmany(10)
