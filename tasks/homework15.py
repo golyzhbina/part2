@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QTextEdit, QLabel
 from PyQt5.QtGui import QPainter, QColor, QPen
-from math import sin, pi, cos, acos, asin
+from math import sin, pi, cos
+from PyQt5.QtWidgets import QColorDialog
 
 
 class Widget2(QWidget):
@@ -37,62 +38,74 @@ class Widget2(QWidget):
         self.line_m = QTextEdit(self)
         self.line_m.setGeometry(225, 16, 50, 20)
 
+        self.flag = False
         self.button_show = QPushButton(self)
         self.button_show.move(290, 16)
         self.button_show.setText("Показать")
-        self.button_show.clicked.connect(self.update)
+        self.button_show.clicked.connect(self.color)
 
         self.coord_x = lambda x: 250 + x
         self.coord_y = lambda y: 250 - y
 
-        self.side = 100
-        self.a = None
+        self.side = 150
+
+    def color(self):
+        self.color = QColorDialog.getColor()
+        self.flag = True
+
 
     def paintEvent(self, event):
 
-        if self.line_coef.toPlainText() == "" \
-                or self.line_n.toPlainText() == "" \
-                or self.line_m.toPlainText() == "":
+        if self.line_coef.toPlainText() == "" or self.line_n.toPlainText() == "" or self.line_m.toPlainText() == "" or not self.flag:
             return
 
-        qt_paint = QPainter()
+        else:
+            self.k = float(self.line_coef.toPlainText())
+            self.n = int(self.line_n.toPlainText())
+            self.m = int(self.line_m.toPlainText())
 
+        qt_paint = QPainter()
         qt_paint.begin(self)
-        self.draw_square(qt_paint)
+        self.coord_figure(qt_paint)
         qt_paint.end()
 
-    def draw_square(self, qp):
+    def figure(self):
 
-        m = int(self.line_m.toPlainText())
-        n = int(self.line_n.toPlainText())
-        coef = float(self.line_coef.toPlainText())
+        self.a = 2 * pi / self.m
+        a0 = 0
+        r = []
+        for i in range(int(self.line_m.toPlainText())):
+            ri = (int(round(self.side * cos(a0), 0)), round(self.side * sin(a0), 0))
+            a0 += self.a
+            r.append(ri)
 
-        x = ((coef * self.side) ** 2 + self.side ** 2 * (1 - coef) ** 2 -
-             2 * coef * self.side ** 2 * (1 - coef) * cos(pi * (m - 2) / m)) ** 0.5
-        self.a = pi / 10
-        if m == 6:
-            self.a = pi / 13
-        elif m == 8:
-            self.a = pi / 7
-        elif m == 10:
-            self.a = pi / 10
-        elif m == 12:
-            self.a = pi / 12
+        return r
 
-        lst_side = list(map(lambda i: coef ** i * self.side * (1.5 ** 0.5), range(n)))
-        lst_r_vec = list(map(lambda s: s * coef ** lst_side.index(s), lst_side))
+    def new_coord(self, ri):
+        return [round(ri[0] + self.k * (ri[2] - ri[0]), 0), round(ri[1] + self.k * (ri[3] - ri[1]), 0)]
 
-        for j in range(n):
-            nodes = [(lst_side[j] * cos(i * 2 * pi / m) * cos(self.a * j)
-                      - sin(self.a * j) * lst_side[j] * sin(i * 2 * pi / m),
-                      lst_side[j] * cos(i * 2 * pi / m) * sin(self.a * j)
-                      + lst_side[j] * sin(i * 2 * pi / m) * cos(self.a * j)) for i in range(m)]
-            nodes2 = [(self.coord_x(node[0]), self.coord_y(node[1])) for node in nodes]
+    def coord_figure(self, qp):
+        r = self.figure()
+        pen = QPen(self.color)
+        qp.setPen(pen)
 
-            pen = QPen(QColor(81, 192, 15), 3)
-            qp.setPen(pen)
-            for i in range(-1, len(nodes2) - 1):
-                qp.drawLine(*nodes2[i], *nodes2[i + 1])
+        for j in range(self.n):
+            for i in range(len(r) - 1):
+                coords = [self.coord_x(r[i][0]), self.coord_y(r[i][1]),
+                          self.coord_x(r[i + 1][0]), self.coord_y(r[i+1][1])]
+                qp.drawLine(*coords)
+
+            coords = [self.coord_x(r[0][0]), self.coord_y(r[0][1]), self.coord_x(r[-1][0]), self.coord_y(r[-1][1])]
+            qp.drawLine(*coords)
+
+            new_r = []
+            for i in range(-1, len(r) - 1):
+                r1 = r[i]
+                r2 = r[i + 1]
+                ri = r1 + r2
+                new_r.append(self.new_coord(ri))
+
+            r = new_r
 
 sys._excepthook = sys.excepthook
 
