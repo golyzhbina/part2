@@ -1,0 +1,9 @@
+{% extends "base_temp.html" %}
+{% block content %}
+<h2><p class="text-center">Размещение по каютам</p></h2>
+    <ul>
+        {% for name in names %}
+        <li><h4>{{ name }} - Каюта №{{ loop.index }} {% if loop.first %}- Капитан корабля</h4> {% endif %}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
