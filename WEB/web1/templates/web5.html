@@ -19,7 +19,7 @@
             <img src="{{img5}}" class="d-block w-100" alt="...">
         </div>
     </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
@@ -28,4 +28,9 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+<form  action="" method="post" novalidate>
+    <h3>Добавить пейзажи</h3>
+    <p>{{ form.file_field }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
 {% endblock %}
