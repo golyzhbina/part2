@@ -1,6 +1,13 @@
+import json
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, url_for
+from random import choice
+from choose_form import ChooseFile
 
 app = Flask(__name__)
+load_dotenv()
+app.config["SECRET_KEY"] = os.getenv("MY_SECRET_KEY")
 
 
 @app.route('/distribution')
@@ -37,6 +44,32 @@ def web3():
                            img3=url_for('static', filename='img/mars3.png'),
                            img4=url_for('static', filename='img/mars4.png'),
                            img5=url_for('static', filename='img/mars5.png'))
+
+
+@app.route("/my_gallery")
+def web5():
+    form = ChooseFile()
+    if form.file_field.data:
+        print(form.file_field.data)
+    return render_template("web5.html", form=form,
+                           img1=url_for('static', filename='img/mars1.png'),
+                           img2=url_for('static', filename='img/mars2.png'),
+                           img3=url_for('static', filename='img/mars3.png'),
+                           img4=url_for('static', filename='img/mars4.png'),
+                           img5=url_for('static', filename='img/mars5.png'))
+
+
+@app.route("/member")
+def web4():
+    with open("static/json/data.json", "rt", encoding="utf8") as f:
+        data = json.loads(f.read())
+
+    name = choice(list(data.keys()))
+    img = data[name][-1]
+    prof = sorted(data[name][0])
+    prof = ", ".join(prof)
+
+    return render_template("web4.html", name=name, img_m=url_for('static', filename=f'img/{img}'), prof=prof)
 
 
 if __name__ == '__main__':
