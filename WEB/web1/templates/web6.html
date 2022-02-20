@@ -1,0 +1,145 @@
+{% extends "base_temp.html" %}
+{% block content %}
+<p class="text-center"><h2>Анкета претендента</h2></p>
+<p class="text-center"><h3>на участие в миссии</h3></p>
+<form action="" method="post" novalidate>
+  {{ form_info.hidden_tag() }}
+  <p>
+    {{ form_info.surname(class="form-control", type="text", placeholder="Введите вашу фамилию") }}
+    {{ form_info.name(class="form-control", type="text", placeholder="Введите ваше имя") }}
+  </p>
+  <p>
+  <div class="mb-3">
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Введите ваш адрес электронной почты">
+  </div>
+  </p>
+  <p>
+    <h6>Какое у вас образование?</h6>
+  <div class="dropdown">
+    <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      Начальное
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">Инженер-исследователь</a></li>
+      <li><a class="dropdown-item" href="#">Пилот</a></li>
+      <li><a class="dropdown-item" href="#">Строитель</a></li>
+      <li><a class="dropdown-item" href="#">Экзобиолог</a></li>
+      <li><a class="dropdown-item" href="#">Врач</a></li>
+      <li><a class="dropdown-item" href="#">Инженер по терраформированию</a></li>
+      <li><a class="dropdown-item" href="#">Климатолог</a></li>
+      <li><a class="dropdown-item" href="#">Специалист по радиационной защите</a></li>
+      <li><a class="dropdown-item" href="#">Астрогеолог</a></li>
+      <li><a class="dropdown-item" href="#">Гляциолог</a></li>
+      <li><a class="dropdown-item" href="#">Инженер жизенобеспечения</a></li>
+      <li><a class="dropdown-item" href="#">Метеоролог</a></li>
+    </ul>
+  </div>
+  </p>
+  <p>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">
+      Пилот
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Инженер-исследователь
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2">
+    <label class="form-check-label" for="flexCheckDefault">
+      Строитель
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Экзобиолог
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Врач
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked5">
+    <label class="form-check-label" for="flexCheckDefault">
+      Инженер по терраформированию
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked6">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Климатолог
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked7">
+    <label class="form-check-label" for="flexCheckDefault">
+      Специалист по радиационной защите
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked8">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Астрогоеолог
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked9">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Гляциолог
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked10">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Инженер жизнеобеспечения
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked11">
+    <label class="form-check-label"  for="flexCheckDefault">
+      Метеоролог
+    </label>
+  </div>
+  </p>
+  <p>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+    <label class="form-check-label" for="flexRadioDefault1">
+      Мужской
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+    <label class="form-check-label" for="flexRadioDefault2">
+      Женский
+    </label>
+  </div>
+  </p>
+  <p>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Почему Вы хотите принят участие в миссии?</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  </p>
+  <p>
+    {{ form_info.file }}
+  </p>
+  <p>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+    <label class="form-check-label" for="flexRadioDefault1">
+     Готовы остаться на Марсе?
+    </label>
+  </div>
+  </p>
+  <p>{{ form_info.submit(type="submit", class="btn btn-danger") }}</p>
+</form>
+{% endblock %}

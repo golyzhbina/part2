@@ -1,0 +1,12 @@
+{% extends "base_temp.html" %}
+{% block content %}
+<h1>Результаты отбора</h1>
+<h2>Претендента на участие в миссии {{ nickname }}</h2>
+<div class="alert alert-info" role="alert">
+    Поздравлем! ваш рейтинг после {{ level }} этапа отбора
+</div>
+<h2>составляет {{ rating }}!</h2>
+<div class="alert alert-warning" role="alert">
+    Желаем удачи!
+</div>
+{% endblock %}

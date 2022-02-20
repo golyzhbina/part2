@@ -4,12 +4,24 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, url_for, redirect
 from random import choice
 from flask_wtf import FlaskForm
-from wtforms import FileField, SubmitField
+from wtforms.validators import DataRequired
+from wtforms import FileField, SubmitField, StringField
 
 
 class LoadImageForm(FlaskForm):
     file = FileField()
     submit = SubmitField('Отправить')
+
+
+class Questionnaire(FlaskForm):
+
+    surname = StringField(validators=[DataRequired()])
+    name = StringField(validators=[DataRequired()])
+    email = StringField(validators=[DataRequired()])
+    file = FileField()
+    submit = SubmitField('Отправить')
+
+
 
 
 app = Flask(__name__)
@@ -77,6 +89,17 @@ def web4():
     prof = ", ".join(prof)
 
     return render_template("web4.html", name=name, img_m=url_for('static', filename=f'img/{img}'), prof=prof)
+
+
+@app.route("/selection")
+def web6():
+    form_info = Questionnaire()
+    return render_template("web6.html", form_info=form_info)
+
+
+@app.route("/results/<nickname>/<int:level>/<float:rating>")
+def web7(nickname, level, rating):
+    return render_template("web7.html", nickname=nickname, level=level, rating=rating)
 
 
 if __name__ == '__main__':
