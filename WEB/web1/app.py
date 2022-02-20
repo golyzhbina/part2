@@ -1,9 +1,16 @@
 import json
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
 from random import choice
-from choose_form import ChooseFile
+from flask_wtf import FlaskForm
+from wtforms import FileField, SubmitField
+
+
+class LoadImageForm(FlaskForm):
+    file = FileField()
+    submit = SubmitField('Отправить')
+
 
 app = Flask(__name__)
 load_dotenv()
@@ -39,24 +46,24 @@ def web2(sex, age):
 @app.route("/gallery")
 def web3():
     return render_template("web3.html",
-                           img1=url_for('static', filename='img/mars1.png'),
-                           img2=url_for('static', filename='img/mars2.png'),
-                           img3=url_for('static', filename='img/mars3.png'),
-                           img4=url_for('static', filename='img/mars4.png'),
-                           img5=url_for('static', filename='img/mars5.png'))
+                           img1=url_for('static', filename='img/mars/mars1.png'),
+                           img2=url_for('static', filename='img/mars/mars2.png'),
+                           img3=url_for('static', filename='img/mars/mars3.png'),
+                           img4=url_for('static', filename='img/mars/mars4.png'),
+                           img5=url_for('static', filename='img/mars/mars5.png'))
 
 
-@app.route("/my_gallery")
+@app.route("/my_gallery", methods=['GET', 'POST'])
 def web5():
-    form = ChooseFile()
-    if form.file_field.data:
-        print(form.file_field.data)
-    return render_template("web5.html", form=form,
-                           img1=url_for('static', filename='img/mars1.png'),
-                           img2=url_for('static', filename='img/mars2.png'),
-                           img3=url_for('static', filename='img/mars3.png'),
-                           img4=url_for('static', filename='img/mars4.png'),
-                           img5=url_for('static', filename='img/mars5.png'))
+    form = LoadImageForm()
+    if form.validate_on_submit():
+        raw_data = form.file.data
+        with open(f"./static/img/mars/mars{len(os.listdir('./static/img/')) + 1}.png", "wb") as out_file:
+            out_file.write(raw_data.read())
+        return redirect("my_gallery")
+    return render_template("web5.html", images=list(map(lambda x: url_for('static', filename=x),
+                                                        map(lambda t: "img/mars/" + t,
+                                                            os.listdir("./static/img/mars")))), form=form)
 
 
 @app.route("/member")
